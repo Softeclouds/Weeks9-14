@@ -30,13 +30,13 @@ public class growCoroutine : MonoBehaviour
             yield return null;
         }
 
-        if(t >= duration)
+        transform.localScale = targetScale;
+
+        if (t >= duration)
         {
             Debug.Log("Attact is over");
-            button.interactable = true;
+            transform.localScale = Vector3.one;
         }
-
-        transform.localScale = targetScale;
     }
 
 
