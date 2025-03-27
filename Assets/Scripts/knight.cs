@@ -10,6 +10,9 @@ public class knight : MonoBehaviour
     public float speed = 2f;
     public bool canRun = true;
 
+    public AudioSource audioSource;
+    public AudioClip[] clips;
+
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -43,7 +46,7 @@ public class knight : MonoBehaviour
 
     public void playFootStep()
     {
-        // add asound effect here and link to animation events in animaiton tab
+        audioSource.PlayOneShot(clips[Random.Range(0, clips.Length)]);
         // syncs audio with animation
     }
 }
