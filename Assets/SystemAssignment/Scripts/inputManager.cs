@@ -29,31 +29,35 @@ public class inputManager : MonoBehaviour
     private List<Sequence> mediumSequences = new List<Sequence>();
     private List<Sequence> hardSequences = new List<Sequence> ();
     private List<Sequence> powerUpSequences = new List<Sequence>();
-    private bool difficultyChosen = false;
+    
     // UI //
     public Slider timer;
     private float t = 0f;
     private float timerT;
     private int score;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI difficultyText;
     // UnityEvents //
     public UnityEvent onEasySelected;
     public UnityEvent onMediumSelected;
     public UnityEvent onHardSelected;
     public UnityEvent onPowerUpEnabled;
 
+    public gameManager gameManager;
+
     private List<Sequence> selectedList = new List<Sequence>(); // currentList to pick from
 
     void Start()
     {
         CreateSequences(); // Creates all sequences
+        gameManager.startUp();
     }
 
     void Update()
     {
         scoreText.text = "Score: " + score; // Update the score
 
-        if (difficultyChosen) // is the game has started, then increase time and check for a game over
+        if (gameManager.difficultyChosen) // is the game has started, then increase time and check for a game over
         {
             // increase time and update slider
             t += Time.deltaTime;
@@ -64,6 +68,7 @@ public class inputManager : MonoBehaviour
             {
                 Debug.Log("Game Over");
                 t = 0f;
+                gameManager.outGame();
             }
         }
 
@@ -100,13 +105,14 @@ public class inputManager : MonoBehaviour
         Debug.Log("PowerUp: " + powerUpSequences.Count);
     }
 
-    public void SelectDifficulty(int difficultyLevel)
+    public void SelectDifficulty(string difficultyLevel)
     {
         // if the difficulty level is equal to one of the levels, update the selectedList
-        if (difficultyLevel == 1) { onEasySelected?.Invoke(); }
-        else if (difficultyLevel == 2) { onMediumSelected?.Invoke(); }
-        else if (difficultyLevel == 3) { onHardSelected?.Invoke(); }
-        else if (difficultyLevel == 4) { onPowerUpEnabled?.Invoke(); }
+        if (difficultyLevel == "EASY") { onEasySelected?.Invoke(); }
+        else if (difficultyLevel == "MEDIUM") { onMediumSelected?.Invoke(); }
+        else if (difficultyLevel == "HARD") { onHardSelected?.Invoke(); }
+        else if (difficultyLevel == "POWERUP") { onPowerUpEnabled?.Invoke(); }
+        difficultyText.text = ("Difficulty: " + difficultyLevel);
 
     }
 
@@ -115,6 +121,7 @@ public class inputManager : MonoBehaviour
         Debug.Log("You have chosen EASY");
         selectedList = easySequences;
         timerT = 120;
+        gameManager.inGame();
     }
 
     public void SetListMedium()
@@ -123,6 +130,7 @@ public class inputManager : MonoBehaviour
         selectedList.AddRange(easySequences);
         selectedList.AddRange(mediumSequences);
         timerT = 60;
+        gameManager.inGame();
     }
 
     public void SetListHard()
@@ -132,11 +140,14 @@ public class inputManager : MonoBehaviour
         selectedList.AddRange(mediumSequences);
         selectedList.AddRange(hardSequences);
         timerT = 30;
+        gameManager.inGame();
     }
 
     public void SetListPowerUp()
     {
         selectedList = powerUpSequences;
     }
+
+   
 
 }
