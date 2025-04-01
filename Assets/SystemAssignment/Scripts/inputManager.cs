@@ -20,6 +20,7 @@ public class inputManager : MonoBehaviour
 
     // VARIABLES //
     // arrows //
+    public arrowManager arrowManager;
     KeyCode Up = KeyCode.UpArrow;
     KeyCode Down = KeyCode.DownArrow;
     KeyCode Right = KeyCode.RightArrow;
@@ -29,7 +30,8 @@ public class inputManager : MonoBehaviour
     private List<Sequence> mediumSequences = new List<Sequence>();
     private List<Sequence> hardSequences = new List<Sequence> ();
     private List<Sequence> powerUpSequences = new List<Sequence>();
-    
+    private Sequence currentSequence;
+    private int currentIndex = 0;
     // UI //
     public Slider timer;
     private float t = 0f;
@@ -51,6 +53,8 @@ public class inputManager : MonoBehaviour
     {
         CreateSequences(); // Creates all sequences
         gameManager.startUp();
+        selectedList = easySequences;
+        SelectSequence();
     }
 
     void Update()
@@ -101,8 +105,19 @@ public class inputManager : MonoBehaviour
         hardSequences.Add(new Sequence(new List<KeyCode> { Up, Left, Right, Down, Down, Left, Up }));
         Debug.Log("Hard: " + hardSequences.Count);
 
-
+        powerUpSequences.Add(new Sequence(new List<KeyCode> { Up }));
+        powerUpSequences.Add(new Sequence(new List<KeyCode> { Left }));
+        powerUpSequences.Add(new Sequence(new List<KeyCode> { Down }));
+        powerUpSequences.Add(new Sequence(new List<KeyCode> { Right }));
         Debug.Log("PowerUp: " + powerUpSequences.Count);
+    }
+
+    void SelectSequence()
+    {
+
+        currentSequence = selectedList[Random.Range(0, selectedList.Count)];
+        currentIndex = 0;
+        arrowManager.DisplaySequence(currentSequence.keyList);
     }
 
     public void SelectDifficulty(string difficultyLevel)
