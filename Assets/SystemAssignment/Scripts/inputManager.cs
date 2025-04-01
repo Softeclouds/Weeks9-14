@@ -32,6 +32,7 @@ public class inputManager : MonoBehaviour
     private List<Sequence> powerUpSequences = new List<Sequence>();
     private Sequence currentSequence;
     private int currentIndex = 0;
+    private int penalty;
     // UI //
     public Slider timer;
     private float t = 0f;
@@ -73,6 +74,23 @@ public class inputManager : MonoBehaviour
                 Debug.Log("Game Over");
                 t = 0f;
                 gameManager.outGame();
+            }
+
+            // checking for anykey so that mistakes can be accounted for
+            if(Input.anyKeyDown)
+            {
+                // checking to see if the current index hasnt exceded the list count and if it matches the button pressed
+                if(currentIndex < currentSequence.keyList.Count && IsMatchingInput(currentSequence.keyList[currentIndex]))
+                {
+                    arrowManager.CorrectArrow(currentIndex); // change the current arrow to invisible
+                    currentIndex++; // update the current index to the next one
+                }
+            }
+
+            else
+            {
+                OnMistake();
+                t = t + penalty; // increases the time by the difficulties pentaly ammount to increase challenge
             }
         }
 
@@ -120,6 +138,32 @@ public class inputManager : MonoBehaviour
         arrowManager.DisplaySequence(currentSequence.keyList);
     }
 
+    // Takes the expected index keycode and checks if it matches any of the possible key inputs for that keycode
+    bool IsMatchingInput(KeyCode expectedKey)
+    {
+        if (expectedKey == KeyCode.UpArrow)
+            return Input.GetKeyDown(Up) || Input.GetKeyDown(KeyCode.W);
+
+        if (expectedKey == KeyCode.DownArrow)
+            return Input.GetKeyDown(Down) || Input.GetKeyDown(KeyCode.S);
+
+        if (expectedKey == KeyCode.LeftArrow)
+            return Input.GetKeyDown(Left) || Input.GetKeyDown(KeyCode.A);
+
+        if (expectedKey == KeyCode.RightArrow)
+            return Input.GetKeyDown(Right) || Input.GetKeyDown(KeyCode.D);
+
+        return false; // False if it doesnt match
+    }
+
+    void OnMistake()
+    {
+        currentIndex = 0;
+        arrowManager.WrongArrows();
+    }
+
+
+
     public void SelectDifficulty(string difficultyLevel)
     {
         // if the difficulty level is equal to one of the levels, update the selectedList
@@ -136,6 +180,7 @@ public class inputManager : MonoBehaviour
         Debug.Log("You have chosen EASY");
         selectedList = easySequences;
         timerT = 120;
+        penalty = 1;
         gameManager.inGame();
     }
 
@@ -145,6 +190,7 @@ public class inputManager : MonoBehaviour
         selectedList.AddRange(easySequences);
         selectedList.AddRange(mediumSequences);
         timerT = 60;
+        penalty = 2;
         gameManager.inGame();
     }
 
@@ -155,6 +201,7 @@ public class inputManager : MonoBehaviour
         selectedList.AddRange(mediumSequences);
         selectedList.AddRange(hardSequences);
         timerT = 30;
+        penalty = 3;
         gameManager.inGame();
     }
 
