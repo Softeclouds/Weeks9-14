@@ -30,6 +30,34 @@ public class arrowManager : MonoBehaviour
         }
     }
 
+    // Makes the arrows invisible if the correct key is pressed
+    void CorectArrow(int index)
+    {
+        if (index < activeArrows.Count) // if the current sequence hasnt been completed
+        {
+            activeArrows[index].GetComponent<Image>().color = Color.clear; // set the current arrow in the sequence to invisible
+        }
+    }
+
+    // Sets all arrows back to being visible if the wrong key is pressed
+    public void WrongArrows()
+    {
+        foreach (GameObject arrow in activeArrows)
+        {
+            arrow.GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    // Destroys active arrows and clears the list. Used for after completing a sequence
+    private void ClearArrows()
+    {
+        foreach (GameObject arrow in activeArrows)
+        {
+            Destroy(arrow);
+        }
+        activeArrows.Clear();
+    }
+
     // get the correct sprite
     private Sprite GetArrowSprite(KeyCode key)
     {
