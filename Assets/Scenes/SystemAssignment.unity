@@ -430,7 +430,6 @@ MonoBehaviour:
   outGameCanvas: {fileID: 1180486056}
   menuCanvas: {fileID: 98169996}
   difficultySelectCanvas: {fileID: 1955106793}
-  difficultyChosen: 0
 --- !u!1 &338091329
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,6 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowManager: {fileID: 2132626622}
+  nextSequenceDelay: 0.25
   timer: {fileID: 660270863}
   scoreText: {fileID: 1704331919}
   difficultyText: {fileID: 1101594982}

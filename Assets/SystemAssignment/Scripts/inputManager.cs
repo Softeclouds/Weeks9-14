@@ -33,6 +33,7 @@ public class inputManager : MonoBehaviour
     private Sequence currentSequence;
     private int currentIndex = 0;
     private int penalty;
+    public float nextSequenceDelay;
     // UI //
     public Slider timer;
     private float t = 0f;
@@ -89,7 +90,7 @@ public class inputManager : MonoBehaviour
                     if(currentIndex >= currentSequence.keyList.Count)
                     {
                         arrowManager.ClearArrows();
-                        SelectSequence();
+                        StartCoroutine(SelectDelay(nextSequenceDelay));
                         score++;
                     }
                 }
@@ -102,6 +103,12 @@ public class inputManager : MonoBehaviour
             }  
         }
 
+    }
+
+    IEnumerator SelectDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SelectSequence();
     }
 
     void CreateSequences()
@@ -188,6 +195,7 @@ public class inputManager : MonoBehaviour
         Debug.Log("You have chosen EASY");
         selectedList = easySequences;
         timerT = 120;
+        timer.maxValue = 120;
         penalty = 1;
         gameManager.inGame();
     }
@@ -198,6 +206,7 @@ public class inputManager : MonoBehaviour
         selectedList.AddRange(easySequences);
         selectedList.AddRange(mediumSequences);
         timerT = 60;
+        timer.maxValue = 60;
         penalty = 2;
         gameManager.inGame();
     }
@@ -209,6 +218,7 @@ public class inputManager : MonoBehaviour
         selectedList.AddRange(mediumSequences);
         selectedList.AddRange(hardSequences);
         timerT = 30;
+        timer.maxValue = 30;
         penalty = 3;
         gameManager.inGame();
     }
