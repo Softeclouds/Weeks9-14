@@ -30,8 +30,11 @@ public class powerUpManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime)); // wait a random amount of time within the range before spawing a powerup
             Debug.Log("PowerUp spawned !");
+            RectTransform rectTransform = GetComponent<RectTransform>(); // Getting the transform of the button
+            Vector2 randomPos = new Vector2 (Random.Range(100, Screen.width - 100), Random.Range(100, Screen.height - 100)); // Get a random screen position
+            rectTransform.position = randomPos; // Apply position to the button transfrom
         }
     }
     // Update is called once per frame
