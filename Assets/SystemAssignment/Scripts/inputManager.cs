@@ -84,6 +84,14 @@ public class inputManager : MonoBehaviour
                 {
                     arrowManager.CorrectArrow(currentIndex); // change the current arrow to invisible
                     currentIndex++; // update the current index to the next one
+
+                    // if the index excedes the sequence count, add score and choose next sequence
+                    if(currentIndex >= currentSequence.keyList.Count)
+                    {
+                        arrowManager.ClearArrows();
+                        SelectSequence();
+                        score++;
+                    }
                 }
 
                 else

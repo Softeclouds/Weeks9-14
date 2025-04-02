@@ -49,7 +49,7 @@ public class arrowManager : MonoBehaviour
     }
 
     // Destroys active arrows and clears the list. Used for after completing a sequence
-    private void ClearArrows()
+    public void ClearArrows()
     {
         foreach (GameObject arrow in activeArrows)
         {

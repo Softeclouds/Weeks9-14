@@ -10,8 +10,6 @@ public class gameManager : MonoBehaviour
     public Canvas menuCanvas;
     public Canvas difficultySelectCanvas;
 
-    public bool difficultyChosen = false;
-
     public void startUp()
     {
         gameCanvas.enabled = false;
@@ -22,7 +20,6 @@ public class gameManager : MonoBehaviour
 
     public void inGame()
     {
-        difficultyChosen = true;
         gameCanvas.enabled = true;
         outGameCanvas.enabled = false;
         menuCanvas.enabled = false;
@@ -31,7 +28,6 @@ public class gameManager : MonoBehaviour
 
     public void outGame()
     {
-        difficultyChosen = false;
         gameCanvas.enabled = false;
         outGameCanvas.enabled = true;
         menuCanvas.enabled = false;
