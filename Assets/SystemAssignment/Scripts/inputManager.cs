@@ -38,7 +38,7 @@ public class inputManager : MonoBehaviour
     public Slider timer;
     private float t = 0f;
     private float timerT;
-    private int score;
+    public int score;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI difficultyText;
     // UnityEvents //

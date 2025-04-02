@@ -343,7 +343,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 227221687}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 315167256}
+        m_TargetAssemblyTypeName: gameManager, Assembly-CSharp
+        m_MethodName: replayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &227221687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,12 +419,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315167254}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1599597068}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &315167256
 MonoBehaviour:
@@ -430,6 +442,7 @@ MonoBehaviour:
   outGameCanvas: {fileID: 1180486056}
   menuCanvas: {fileID: 98169996}
   difficultySelectCanvas: {fileID: 1955106793}
+  inputManager: {fileID: 419641385}
 --- !u!1 &338091329
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +758,7 @@ MonoBehaviour:
   arrowManager: {fileID: 2132626622}
   nextSequenceDelay: 0.25
   timer: {fileID: 660270863}
+  score: 0
   scoreText: {fileID: 1704331919}
   difficultyText: {fileID: 1101594982}
   onEasySelected:
@@ -1804,7 +1818,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921129608}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -2176,7 +2190,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180486052}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -2476,7 +2490,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1405982409}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 315167256}
+        m_TargetAssemblyTypeName: gameManager, Assembly-CSharp
+        m_MethodName: menuButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1405982409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2769,8 +2795,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 315167255}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1704331917
@@ -3400,6 +3425,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1599597068}
+  - {fileID: 315167255}
   - {fileID: 2040007696}
   - {fileID: 1588874248}
   - {fileID: 2087274539}
