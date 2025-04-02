@@ -31,7 +31,7 @@ public class arrowManager : MonoBehaviour
     }
 
     // Makes the arrows invisible if the correct key is pressed
-    void CorectArrow(int index)
+    public void CorrectArrow(int index)
     {
         if (index < activeArrows.Count) // if the current sequence hasnt been completed
         {

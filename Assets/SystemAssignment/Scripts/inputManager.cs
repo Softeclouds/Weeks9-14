@@ -62,7 +62,7 @@ public class inputManager : MonoBehaviour
     {
         scoreText.text = "Score: " + score; // Update the score
 
-        if (gameManager.difficultyChosen) // is the game has started, then increase time and check for a game over
+        if (gameManager.gameCanvas.enabled) // is the game has started, then increase time and check for a game over
         {
             // increase time and update slider
             t += Time.deltaTime;
@@ -77,21 +77,21 @@ public class inputManager : MonoBehaviour
             }
 
             // checking for anykey so that mistakes can be accounted for
-            if(Input.anyKeyDown)
+            if (Input.anyKeyDown)
             {
                 // checking to see if the current index hasnt exceded the list count and if it matches the button pressed
-                if(currentIndex < currentSequence.keyList.Count && IsMatchingInput(currentSequence.keyList[currentIndex]))
+                if (currentIndex < currentSequence.keyList.Count && IsMatchingInput(currentSequence.keyList[currentIndex]))
                 {
                     arrowManager.CorrectArrow(currentIndex); // change the current arrow to invisible
                     currentIndex++; // update the current index to the next one
                 }
-            }
 
-            else
-            {
-                OnMistake();
-                t = t + penalty; // increases the time by the difficulties pentaly ammount to increase challenge
-            }
+                else
+                {
+                    OnMistake();
+                    t = t + penalty; // increases the time by the difficulties pentaly ammount to increase challenge
+                }
+            }  
         }
 
     }
