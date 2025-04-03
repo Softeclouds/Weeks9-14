@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MoveWhenClick : MonoBehaviour
 {
     public float speed = 5f;
     private Vector2 targetPos;
     private bool isMoving = false;
+
+    public Tilemap stoneTilemap;
 
     // Start is called before the first frame update
     void Start()
@@ -33,9 +36,15 @@ public class MoveWhenClick : MonoBehaviour
     void SetTargetPos(Vector2 mousePos)
     {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0f)); // get the click location and change it to a world location
-        targetPos = new Vector2(worldPosition.x, worldPosition.y); // set the target position to the world location
-
-        isMoving = true;
+        if (stoneTilemap.HasTile(stoneTilemap.WorldToCell(worldPosition))) // Check if the tile exists in the stone tilemap
+        {
+            targetPos = new Vector2(worldPosition.x, worldPosition.y);
+            isMoving = true;
+        }
+        else
+        {
+            Debug.Log("Click on the stone, not grass");
+        }
     }
 
     void Move()
