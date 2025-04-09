@@ -71,10 +71,13 @@ public class powerUpManager : MonoBehaviour
         }
         color.a = 1;
         image.color = color;
+
+        button.interactable = true;
     }
 
     IEnumerator FadeOut()
     {
+        button.interactable = false;
         float alpha = 1;
         Color color = image.color;
         while (alpha < 0)
@@ -110,6 +113,7 @@ public class powerUpManager : MonoBehaviour
         yield return new WaitForSeconds(powerUpDuration);
         Debug.Log("PowerUp effect ended!");
 
+        inputManager.powerUpEnabled = false;
 
         if (lastDifficulty == "EASY") { inputManager.selectedList = inputManager.easySequences; }
         else if (lastDifficulty == "MEDIUM") { inputManager.selectedList = inputManager.mediumSequences; }

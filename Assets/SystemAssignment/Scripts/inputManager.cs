@@ -52,6 +52,8 @@ public class inputManager : MonoBehaviour
 
     public gameManager gameManager;
 
+    public bool powerUpEnabled = false;
+
     public List<Sequence> selectedList = new List<Sequence>(); // currentList to pick from
 
     void Start()
@@ -64,7 +66,16 @@ public class inputManager : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "Score: " + score; // Update the score
+        if (powerUpEnabled)
+        {
+            nextSequenceDelay = 0.1f;
+        }
+        else
+        {
+            nextSequenceDelay = 0.25f;
+        }
+
+            scoreText.text = "Score: " + score; // Update the score
 
         if (gameManager.gameCanvas.enabled) // is the game has started, then increase time and check for a game over
         {
@@ -230,7 +241,7 @@ public class inputManager : MonoBehaviour
 
     public void SetListPowerUp()
     {
-
+        powerUpEnabled = true;
         selectedList = powerUpSequences;
     }
 
