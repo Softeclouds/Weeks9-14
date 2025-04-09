@@ -22,6 +22,9 @@ public class powerUpManager : MonoBehaviour
     private Image image;
     private Button button;
     private bool isActive = false;
+
+    public AudioSource audioSource;
+    public List<AudioClip> sounds;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +44,7 @@ public class powerUpManager : MonoBehaviour
 
             Debug.Log("PowerUp spawned !");
             inputManager.onPowerUpActivated.AddListener(inputManager.SetListPowerUp);
+            inputManager.onPowerUpActivated.AddListener(powerUpSounds);
             RectTransform rectTransform = GetComponent<RectTransform>(); // Getting the transform of the button
             Vector2 randomPos = new Vector2 (Random.Range(100, Screen.width - 100), Random.Range(100, Screen.height - 100)); // Get a random screen position
             rectTransform.position = randomPos; // Apply position to the button transfrom
@@ -98,6 +102,8 @@ public class powerUpManager : MonoBehaviour
         isActive = false;
         Debug.Log(inputManager.selectedList.Count);
 
+
+
         inputManager.onPowerUpActivated.Invoke(); // call the powerup activated functions
 
         // reset arrows before drawing new ones
@@ -123,5 +129,10 @@ public class powerUpManager : MonoBehaviour
         else if (lastDifficulty == "MEDIUM") { inputManager.selectedList = inputManager.mediumSequences; }
         else if (lastDifficulty == "HARD") { inputManager.selectedList = inputManager.hardSequences; }
 
+    }
+
+    public void powerUpSounds()
+    {
+        audioSource.PlayOneShot(sounds[Random.Range(0, sounds.Count)]);
     }
 }
