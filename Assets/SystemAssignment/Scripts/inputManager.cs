@@ -26,9 +26,9 @@ public class inputManager : MonoBehaviour
     KeyCode Right = KeyCode.RightArrow;
     KeyCode Left = KeyCode.LeftArrow;
     // Sequences //
-    private List<Sequence> easySequences = new List<Sequence>();
-    private List<Sequence> mediumSequences = new List<Sequence>();
-    private List<Sequence> hardSequences = new List<Sequence> ();
+    public List<Sequence> easySequences = new List<Sequence>();
+    public List<Sequence> mediumSequences = new List<Sequence>();
+    public List<Sequence> hardSequences = new List<Sequence> ();
     private List<Sequence> powerUpSequences = new List<Sequence>();
     private Sequence currentSequence;
     private int currentIndex = 0;
@@ -45,11 +45,14 @@ public class inputManager : MonoBehaviour
     public UnityEvent onEasySelected;
     public UnityEvent onMediumSelected;
     public UnityEvent onHardSelected;
-    public UnityEvent onPowerUpEnabled;
+
+    public UnityEvent onPowerUpActivated;
+
+    public string gameDifficulty;
 
     public gameManager gameManager;
 
-    private List<Sequence> selectedList = new List<Sequence>(); // currentList to pick from
+    public List<Sequence> selectedList = new List<Sequence>(); // currentList to pick from
 
     void Start()
     {
@@ -80,6 +83,11 @@ public class inputManager : MonoBehaviour
             // checking for anykey so that mistakes can be accounted for
             if (Input.anyKeyDown)
             {
+                if (Input.GetMouseButtonDown(0)
+                || Input.GetMouseButtonDown(1)
+                || Input.GetMouseButtonDown(2))
+                    return;
+
                 // checking to see if the current index hasnt exceded the list count and if it matches the button pressed
                 if (currentIndex < currentSequence.keyList.Count && IsMatchingInput(currentSequence.keyList[currentIndex]))
                 {
@@ -145,7 +153,7 @@ public class inputManager : MonoBehaviour
         Debug.Log("PowerUp: " + powerUpSequences.Count);
     }
 
-    void SelectSequence()
+    public void SelectSequence()
     {
 
         currentSequence = selectedList[Random.Range(0, selectedList.Count)];
@@ -185,8 +193,8 @@ public class inputManager : MonoBehaviour
         if (difficultyLevel == "EASY") { onEasySelected?.Invoke(); }
         else if (difficultyLevel == "MEDIUM") { onMediumSelected?.Invoke(); }
         else if (difficultyLevel == "HARD") { onHardSelected?.Invoke(); }
-        else if (difficultyLevel == "POWERUP") { onPowerUpEnabled?.Invoke(); }
         difficultyText.text = ("Difficulty: " + difficultyLevel);
+        gameDifficulty = difficultyLevel;
 
     }
 
@@ -203,8 +211,7 @@ public class inputManager : MonoBehaviour
     public void SetListMedium()
     {
         Debug.Log("You have chosen MEDIUM");
-        selectedList.AddRange(easySequences);
-        selectedList.AddRange(mediumSequences);
+        selectedList = mediumSequences;
         timerT = 60;
         timer.maxValue = 60;
         penalty = 2;
@@ -214,9 +221,7 @@ public class inputManager : MonoBehaviour
     public void SetListHard()
     {
         Debug.Log("You have chosen HARD");
-        selectedList.AddRange(easySequences);
-        selectedList.AddRange(mediumSequences);
-        selectedList.AddRange(hardSequences);
+        selectedList = hardSequences;
         timerT = 30;
         timer.maxValue = 30;
         penalty = 3;
@@ -225,6 +230,7 @@ public class inputManager : MonoBehaviour
 
     public void SetListPowerUp()
     {
+
         selectedList = powerUpSequences;
     }
 
