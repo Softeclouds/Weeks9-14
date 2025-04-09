@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class gameManager : MonoBehaviour
 {
     // Game Canvases //
@@ -11,6 +12,8 @@ public class gameManager : MonoBehaviour
     public Canvas difficultySelectCanvas;
 
     public inputManager inputManager;
+
+    public TextMeshProUGUI scoreText;
 
     public void startUp()
     {
@@ -34,6 +37,8 @@ public class gameManager : MonoBehaviour
         outGameCanvas.enabled = true;
         menuCanvas.enabled = false;
         difficultySelectCanvas.enabled = false;
+
+        scoreText.text = ("Score: "+inputManager.score);
     }
 
     public void playButton()
