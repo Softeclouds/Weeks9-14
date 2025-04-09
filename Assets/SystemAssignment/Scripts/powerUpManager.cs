@@ -25,7 +25,7 @@ public class powerUpManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputManager.onPowerUpActivated.AddListener(inputManager.SetListPowerUp);
+        
         // Getting components 
         image = GetComponent<Image>();
         button = GetComponent<Button>();
@@ -40,7 +40,7 @@ public class powerUpManager : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime)); // wait a random amount of time within the range before spawing a powerup
 
             Debug.Log("PowerUp spawned !");
-            
+            inputManager.onPowerUpActivated.AddListener(inputManager.SetListPowerUp);
             RectTransform rectTransform = GetComponent<RectTransform>(); // Getting the transform of the button
             Vector2 randomPos = new Vector2 (Random.Range(100, Screen.width - 100), Random.Range(100, Screen.height - 100)); // Get a random screen position
             rectTransform.position = randomPos; // Apply position to the button transfrom
@@ -116,6 +116,7 @@ public class powerUpManager : MonoBehaviour
         Debug.Log("PowerUp effect ended!");
 
         inputManager.powerUpEnabled = false;
+        inputManager.onPowerUpActivated.RemoveListener(inputManager.SetListPowerUp);
 
         //Reset the sequence back to its proper difficulty
         if (lastDifficulty == "EASY") { inputManager.selectedList = inputManager.easySequences; }
