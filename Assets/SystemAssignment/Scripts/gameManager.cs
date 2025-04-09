@@ -38,7 +38,7 @@ public class gameManager : MonoBehaviour
         menuCanvas.enabled = false;
         difficultySelectCanvas.enabled = false;
 
-        scoreText.text = ("Score: "+inputManager.score);
+        scoreText.text = ("Score: "+inputManager.score); // display score text
     }
 
     public void playButton()
@@ -51,7 +51,7 @@ public class gameManager : MonoBehaviour
 
     public void replayButton()
     {
-        inputManager.score = 0;
+        inputManager.score = 0; // reset score for new game
         gameCanvas.enabled = true;
         outGameCanvas.enabled = false;
         menuCanvas.enabled = false;
@@ -60,7 +60,7 @@ public class gameManager : MonoBehaviour
 
     public void menuButton()
     {
-        inputManager.score = 0;
+        inputManager.score = 0; // reset score for new game
         gameCanvas.enabled = false;
         outGameCanvas.enabled = false;
         menuCanvas.enabled = true;

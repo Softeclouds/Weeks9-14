@@ -72,12 +72,12 @@ public class powerUpManager : MonoBehaviour
         color.a = 1;
         image.color = color;
 
-        button.interactable = true;
+        button.interactable = true; // can interact when its at full opacity 
     }
 
     IEnumerator FadeOut()
     {
-        button.interactable = false;
+        button.interactable = false; // cant interact when its not at full opacity
         float alpha = 1;
         Color color = image.color;
         while (alpha < 0)
@@ -98,7 +98,9 @@ public class powerUpManager : MonoBehaviour
         isActive = false;
         Debug.Log(inputManager.selectedList.Count);
 
-        inputManager.onPowerUpActivated.Invoke();
+        inputManager.onPowerUpActivated.Invoke(); // call the powerup activated functions
+
+        // reset arrows before drawing new ones
         arrowManager.ClearArrows();
         inputManager.SelectSequence();
 
@@ -108,13 +110,14 @@ public class powerUpManager : MonoBehaviour
 
     IEnumerator PowerUpEffect()
     {
-        string lastDifficulty = inputManager.gameDifficulty;
+        string lastDifficulty = inputManager.gameDifficulty; // Get the current difficulty
         Debug.Log(lastDifficulty);
-        yield return new WaitForSeconds(powerUpDuration);
+        yield return new WaitForSeconds(powerUpDuration); // wait its duration before disabling it
         Debug.Log("PowerUp effect ended!");
 
         inputManager.powerUpEnabled = false;
 
+        //Reset the sequence back to its proper difficulty
         if (lastDifficulty == "EASY") { inputManager.selectedList = inputManager.easySequences; }
         else if (lastDifficulty == "MEDIUM") { inputManager.selectedList = inputManager.mediumSequences; }
         else if (lastDifficulty == "HARD") { inputManager.selectedList = inputManager.hardSequences; }
